@@ -26,7 +26,7 @@ public class Display extends JFrame implements ActionListener {
         Game.display = this;
 
         this.setTitle("Littlecat game");
-        this.setSize(950, 485);
+        this.setSize(900, 485);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(280, 100);
         this.setVisible(true);

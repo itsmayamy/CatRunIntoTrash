@@ -29,13 +29,13 @@ public class Menu extends JPanel {
             this.setFocusable(true);
             this.setLayout(null);
             
-            EleLabel status = new EleLabel("You Died!",40,400,100,200,100);
+            EleLabel status = new EleLabel("You Died!",40,400,150,200,100);
             status.setForeground(Color.WHITE);
             
             EleLabel showPoint = new EleLabel("Total :"+this.point,30,400,200,200,100);
             status.setForeground(Color.WHITE);
             
-            EleButton restart = new EleButton("restart",15,380,300,200,50);
+            EleButton restart = new EleButton("restart",15,340,300,200,50);
             restart.addActionListener(main);
             
             this.add(showPoint);
