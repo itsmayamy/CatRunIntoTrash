@@ -20,8 +20,7 @@ import javax.imageio.ImageIO;
  * @author acer
  */
 public class Game extends JPanel implements KeyListener {
-
-    int speed = 10;
+    int speed = 20;
     int waveHeight = 60;
     int catSize = 90;
     int base = 400, xstart = 1000;
@@ -32,12 +31,23 @@ public class Game extends JPanel implements KeyListener {
 
     Wave[] waveSet = makeWaveSet(4);
 
+    Image bgTop;
+    Image bgBottom;
+    Image healthBar;
+
     public Game() {
         this.setBounds(0, 0, 1000, 600);
-        this.addKeyListener(this);
         this.setFocusable(true);
+        this.addKeyListener(this);
         this.setLayout(null);
 
+        try {
+            bgTop = ImageIO.read(new File("img\\bg2.png"));
+            bgBottom = ImageIO.read(new File("img\\bg.png"));
+            healthBar = ImageIO.read(new File("img\\heart.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -66,29 +76,25 @@ public class Game extends JPanel implements KeyListener {
     }
 
     private void drawBackground(Graphics g2) throws IOException {
-        g2.drawImage(ImageIO.read(new File("img\\bg2.png")), 0, 0, 1000, 550, null);
-        g2.drawImage(ImageIO.read(new File("img\\bg.png")), 0, base - 200, 1000, 250, null);
+        g2.drawImage(bgTop, 0, 0, 1000, 550, null);
+        g2.drawImage(bgBottom, 0, base - 200, 1000, 250, null);
     }
 
     private void drawCatHealth(Graphics2D g2) {
-        try {
-            g2.drawImage(ImageIO.read(new File("img\\heart.png")), 2, 10, 60, 50, null);
-            g2.setStroke(new BasicStroke(18.0f));
-            g2.setColor(new Color(241, 98, 69));
-            g2.drawLine(60, 30, 60 + cat.health, 30);
-            g2.setColor(Color.white);
-            g2.setStroke(new BasicStroke(6.0f));
-            g2.drawRect(50, 20, 200, 20);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        g2.drawImage(healthBar, 2, 10, 60, 50, null);
+        g2.setStroke(new BasicStroke(18.0f));
+        g2.setColor(new Color(241, 98, 69));
+        g2.drawLine(60, 30, 60 + cat.health, 30);
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(6.0f));
+        g2.drawRect(50, 20, 200, 20);
     }
 
     private Wave[] makeWaveSet(int waveNumber) {
         Wave[] waveSet = new Wave[waveNumber];
         int far = 500;
         for (int i = 0; i < waveNumber; i++) {
-//            double waveLocation = 1000+Math.floor(Math.random()*1000);
+            // double waveLocation = 1000+Math.floor(Math.random()*1000);
             waveSet[i] = new Wave(xstart + far, base, speed, this);
             far += 500;
         }
@@ -117,11 +123,12 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode());
         if (System.currentTimeMillis() - lastPress > 600) {
             if (e.getKeyCode() == 38 || e.getKeyCode() == 32) {
                 cat.jump(this);
                 lastPress = System.currentTimeMillis();
-//                this.repaint();
+                // this.repaint();
             }
         }
     }
