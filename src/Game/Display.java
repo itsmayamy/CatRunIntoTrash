@@ -14,7 +14,6 @@ import javax.swing.*;
  * @author acer
  */
 public class Display extends JFrame implements ActionListener {
-
     private Dimension size = new Dimension(1000, 600);
 
     public Display() {
